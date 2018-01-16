@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>slide</title>
+    <link rel="stylesheet" href="../css/aui.css">
+    <style>
+        html,
+        body {
+            background: #fff;
+        }
+
+        .user-info {
+            height: 100px;
+            margin: 0 10px 10px 10px;
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-align: center;
+            display: box;
+            box-orient: horizontal;
+            box-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-info:after {
+            border-bottom: 1px solid #e7e2e2;
+            content: "";
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            -webkit-transform: scaleY(.5);
+            -webkit-transform-origin: 0 0;
+        }
+
+        .img-container {
+            margin-right: 10px;
+            width: 60px;
+            height: 60px;
+            overflow: visible;
+            position: relative;
+        }
+
+        .user-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            vertical-align: middle;
+            vertical-align: middle;
+        }
+
+        .user-account {
+            text-align: left;
+        }
+
+        .user-account span {
+            display: block;
+            color: #444;
+        }
+
+        .user-account span:last-child {
+            color: #b9b9ba;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div class="user-info">
+        <div class="img-container">
+            <img src="../image/pic.jpg" />
+        </div>
+        <div class="user-account">
+            <span>阿星Plus</span>
+            <span class="aui-ellipsis">生命不息，奋斗不止！</span>
+        </div>
+    </div>
+</body>
+<script src="../script/api.js"></script>
+<script>
+    apiready = function() {
+        var header = $api.byId('body');
+        $api.fixStatusBar(header);
+    };
+</script>
+
+</html>

@@ -1,66 +1,234 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>Hello APP</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css" />
-	<style>
-		#con{
-			margin: 10px;
-			font-size: 24px; 
-		}
-		ul{
-			margin-bottom: 10px;
-		}
-		ul li{ 
-			margin: 5px 10px;
-			padding: 5px;
-			color: #000;
-			word-wrap: break-word;
-		}
-	</style>
+    <title>main</title>
+    <link rel="stylesheet" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/iconfont/iconfont.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        #main {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        .headdisplay {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .aui-bar-nav {
+            background-color: #38373D;
+        }
+
+        .aui-bar-tab .aui-active {
+            color: #09BB07;
+        }
+
+        .aui-bar-tab {
+            background-color: #F8F8F8;
+            color: #676769;
+            border-top: 0.5px solid #AFAEB4;
+        }
+    </style>
 </head>
+
 <body>
-    <label id="con">Hello APP</label>
-	<div id='sys-info'></div>
+    <div id="wrap" class="aui-bar-nav">
+        <header class="aui-bar aui-bar-nav headdisplay active" id="home-header">
+            <div class="aui-title">
+                首页
+            </div>
+        </header>
+        <header class="aui-bar aui-bar-nav headdisplay" id="tool-header">
+            <div class="aui-title">
+                工具
+            </div>
+        </header>
+        <header class="aui-bar aui-bar-nav headdisplay" id="blog-header">
+            <div class="aui-title">
+                当然我在瞎扯
+            </div>
+        </header>
+        <header class="aui-bar aui-bar-nav headdisplay" id="my-header">
+            <div class="aui-title">
+                我的
+            </div>
+        </header>
+    </div>
+    <div id="main"></div>
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <i class="aui-iconfont aui-icon-home"></i>
+            <div class="aui-bar-tab-label">首页</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <i class="aui-iconfont aui-icon-gear"></i>
+            <div class="aui-bar-tab-label">工具</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <i class="aui-iconfont aui-icon-edit"></i>
+            <div class="aui-bar-tab-label">博客</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <i class="aui-iconfont aui-icon-my"></i>
+            <div class="aui-bar-tab-label">我的</div>
+        </div>
+    </footer>
 </body>
-<script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript">
-    apiready = function(){
-		var ver = api.version;
-		var sType = api.systemType;
-		var sVer = api.systemVersion;
-		var id = api.deviceId;
-		var model = api.deviceModel;
-		var name = api.deviceName;
-		var cType = api.connectionType;
-		var winName = api.winName;
-		var winWidth = api.winWidth;
-		var winHeight = api.winHeight;
-		var frameName = api.frameName || '';
-		var frameWidth = api.frameWidth || '';
-		var frameHeight = api.frameHeight || '';
+<script src="../script/api.js"></script>
+<script src="../script/aui-tab.js"></script>
+<script>
+    var header, footer, headerH, footerH;
+    apiready = function() {
+        header = $api.byId('wrap');
+        $api.fixStatusBar(header);
+        headerH = $api.offset(header).h;
+        footer = $api.byId('footer');
+        footerH = $api.offset(footer).h;
 
-		var str = '<ul>';
-		str += '<li>引擎版本信息: ' + ver + '</li>';
-		str += '<li>系统类型: ' + sType + '</li>';
-		str += '<li>系统版本: ' + sVer + '</li>';
-		str += '<li>设备标识: ' + id + '</li>';
-		str += '<li>设备型号: ' + model + '</li>';
-		str += '<li>设备名称: ' + name + '</li>';
-		str += '<li>网络状态: ' + cType + '</li>';
-		str += '<li>主窗口名字: ' + winName + '</li>';
-		str += '<li>主窗口宽度: ' + winWidth + '</li>';
-		str += '<li>主窗口高度: ' + winHeight + '</li>';
-		str += '<li>子窗口名字: ' + frameName + '</li>';
-		str += '<li>子窗口宽度: ' + frameWidth + '</li>';
-		str += '<li>子窗口高度: ' + frameHeight + '</li>';
-		str += '</ul>';
+        openFrameGroupOrGuidePage();
 
-		$api.byId('sys-info').innerHTML = str;
+        // 监听 Android 返回按钮
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            var backSeconds = 0;
+            var curSeconds = new Date().getSeconds();
+            if (Math.abs(curSeconds - backSeconds) > 2) {
+                backSeconds = curSeconds;
+                api.toast({
+                    msg: '连续按两次退出',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            } else {
+                // 回到系统桌面
+                api.toLauncher();
+            }
+        });
 
-    };
+        api.setStatusBarStyle({
+            style: 'light'
+        });
+    }
+
+    // 打开向导页面和 frame 组
+    function openFrameGroupOrGuidePage() {
+        if ($api.getStorage('first')) {
+            api.setFrameGroupAttr({
+                name: 'guide',
+                hidden: true
+            });
+            api.openFrameGroup({
+                name: 'group',
+                background: '#fff',
+                scrollEnabled: false,
+                rect: {
+                    x: 0,
+                    y: headerH,
+                    w: 'auto',
+                    h: api.winHeight - headerH - footerH
+                },
+                index: 0,
+                frames: [{
+                    name: 'home',
+                    url: 'home.html',
+                    bgColor: '#fff',
+                    bounces: true
+                }, {
+                    name: 'tool',
+                    url: 'tool.html',
+                    bgColor: '#fff',
+                    bounces: true
+                }, {
+                    name: 'blog',
+                    url: 'blog.html',
+                    bgColor: '#fff',
+                    bounces: true
+                }, {
+                    name: 'mine',
+                    url: 'mine.html',
+                    bgColor: '#fff',
+                    bounces: true
+                }]
+            });
+
+            api.unlockSlidPane();
+        } else {
+            api.openFrameGroup({
+                name: 'guide',
+                background: '#000',
+                scrollEnabled: true,
+                rect: {
+                    x: 0,
+                    y: 0,
+                    w: 'auto',
+                    h: api.winHeight
+                },
+                index: 0,
+                preload: 2,
+                frames: [{
+                    name: 'guide_1',
+                    url: './guide/guide_1.html',
+                    bounces: false,
+                    bgColor: '#1CA428'
+                }, {
+                    name: 'guide_2',
+                    url: './guide/guide_2.html',
+                    bounces: false,
+                    bgColor: '#9448B4'
+                }, {
+                    name: 'guide_3',
+                    url: './guide/guide_3.html',
+                    bgColor: '#249ADA'
+                }]
+            }, function(ret) {
+                $api.setStorage('first', true);
+            });
+        }
+    }
+
+    // tab 切换
+    var tab = new auiTab({
+        element: document.getElementById("footer"),
+        index: 1,
+        repeatClick: false
+    }, function(ret) {
+        if (ret) {
+            setFrameGroupAttr(ret.index - 1);
+        }
+    });
+
+    function setFrameGroupAttr(index) {
+        api.setFrameGroupIndex({
+            name: 'group',
+            index: index
+        });
+        var headers = $api.domAll('#wrap header');
+        for (var i = 0; i < headers.length; i++) {
+            $api.removeCls(headers[i], 'active');
+        }
+        $api.addCls(headers[index], 'active');
+    }
+
+    // 打开侧边栏
+    function openSlidPane() {
+        // api.openSlidPane({
+        //     type: 'left'
+        // });
+    }
 </script>
+
 </html>
