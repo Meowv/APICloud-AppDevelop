@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>idioms_dictionary_frame</title>
+    <link rel="stylesheet" href="../../../css/aui.css">
+</head>
+
+<body>
+    <div class="aui-searchbar" id="search">
+        <div class="aui-searchbar-input aui-border-radius">
+            <i class="aui-iconfont aui-icon-search"></i>
+            <input type="search" placeholder="请输入成语" id="search-input" autocapitalize="off">
+            <div class="aui-searchbar-clear-btn">
+                <i class="aui-iconfont aui-icon-close"></i>
+            </div>
+        </div>
+        <div class="aui-searchbar-btn" tapmode>取消</div>
+    </div>
+    <div class="aui-content">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="pinyin">拼音:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="chengyujs">成语解释:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="from">成语出处:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="example">举例:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="yufa">语法:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="ciyujs">词语解释:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="yinzhengjs">引证解释:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="tongyi">同义词:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="fanyi">反义词:</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="../../../script/api.js"></script>
+<script>
+    apiready = function() {
+        api.parseTapmode();
+    }
+
+    function searchIdiom(idiom) {
+        api.ajax({
+            url: 'http://v.juhe.cn/chengyu/query?key=a5ed46efd323466b09c88e92da27968f&word=' + idiom,
+            method: 'get',
+            cache: 'true'
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.error_code == 0) {
+                    var pinyin = $api.byId('pinyin');
+                    var chengyujs = $api.byId('chengyujs');
+                    var from = $api.byId('from');
+                    var example = $api.byId('example');
+                    var yufa = $api.byId('yufa');
+                    var ciyujs = $api.byId('ciyujs');
+                    var yinzhengjs = $api.byId('yinzhengjs');
+                    var tongyi = $api.byId('tongyi');
+                    var fanyi = $api.byId('fanyi');
+                    var temp = '';
+
+                    $api.html(pinyin, '拼音:<br>' + (ret.result.pinyin != null ? ret.result.pinyin : ''));
+                    $api.html(chengyujs, '成语解释:<br>' + (ret.result.chengyujs != null ? ret.result.chengyujs : ''));
+                    $api.html(from, '成语出处:<br>' + (ret.result.from_ != null ? ret.result.from_ : ''));
+                    $api.html(example, '举例:<br>' + (ret.result.example != null ? ret.result.example : ''));
+                    $api.html(yufa, '语法:<br>' + (ret.result.yufa != null ? ret.result.yufa : ''));
+                    $api.html(ciyujs, '词语解释:<br>' + (ret.result.ciyujs != null ? ret.result.ciyujs : ''));
+                    $api.html(yinzhengjs, '引证解释:<br>' + (ret.result.yinzhengjs != null ? ret.result.yinzhengjs : ''));
+
+                    for (var i = 0; i < ret.result.tongyi.length; i++) {
+                        temp = temp = ret.result.tongyi[i];
+                        if (i < ret.result.tongyi.length - 1) {
+                            temp = temp + ';';
+                        }
+                        $api.html(tongyi, '同义词:<br>' + temp);
+                    }
+                    temp = '';
+                    for (var i = 0; i < ret.result.fanyi.length; i++) {
+                        temp = temp = ret.result.fanyi[i];
+                        if (i < ret.result.fanyi.length - 1) {
+                            temp = temp + ';';
+                        }
+                        $api.html(fanyi, '反义词:<br>' + temp);
+                    }
+                } else {
+                    api.toast({
+                        msg: ret.reason,
+                        duration: 3000,
+                        location: 'bottom'
+                    });
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    var searchBar = document.querySelector(".aui-searchbar");
+    var searchBarInput = document.querySelector(".aui-searchbar input");
+    var searchBarBtn = document.querySelector(".aui-searchbar .aui-searchbar-btn");
+    var searchBarClearBtn = document.querySelector(".aui-searchbar .aui-searchbar-clear-btn");
+    if (searchBar) {
+        searchBarInput.onclick = function() {
+            searchBarBtn.style.marginRight = 0;
+        }
+        searchBarInput.oninput = function() {
+            if (this.value.length) {
+                searchBarClearBtn.style.display = 'block';
+                searchBarBtn.classList.add("aui-text-info");
+                searchBarBtn.textContent = "搜索";
+            } else {
+                searchBarClearBtn.style.display = 'none';
+                searchBarBtn.classList.remove("aui-text-info");
+                searchBarBtn.textContent = "取消";
+            }
+        }
+    }
+    searchBarClearBtn.onclick = function() {
+        this.style.display = 'none';
+        searchBarInput.value = '';
+        searchBarBtn.classList.remove("aui-text-info");
+        searchBarBtn.textContent = "取消";
+    }
+    searchBarBtn.onclick = function() {
+        var keywords = searchBarInput.value;
+        if (keywords.length) {
+            searchBarInput.blur();
+            searchIdiom(keywords);
+        } else {
+            this.style.marginRight = "-" + this.offsetWidth + "px";
+            searchBarInput.value = '';
+            searchBarInput.blur();
+        }
+    }
+</script>
+
+</html>

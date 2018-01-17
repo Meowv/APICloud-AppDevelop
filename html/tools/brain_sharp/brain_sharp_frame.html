@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>brain_sharp_frame</title>
+    <link rel="stylesheet" href="../../../css/aui.css">
+    <style>
+        #canvas {
+            border: 1px solid #03a9f4;
+            box-shadow: 10px 10px 10px gray;
+        }
+
+        .answer {
+            left: 50%;
+            margin-left: -35%;
+            position: absolute;
+        }
+
+        #search {
+            min-height: 200px;
+        }
+
+        #text {
+            font-size: 4.0rem;
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            display: box;
+            box-orient: horizontal;
+            box-pack: center;
+            box-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="aui-card-list" id="search">
+        <div class="aui-card-list-content-padded aui-font-size-20" id="quest">
+            <div id="text"></div>
+        </div>
+    </div>
+    <p class="aui-text-center  aui-padded-20">
+        答案
+    </p>
+    <canvas id="myCanvas" class="answer" width="240" height="80"></canvas>
+    <canvas id="canvas" class="answer" width="240" height="80"></canvas>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript">
+    function writeTextOnCanvas(cns, lh, rw, text) {
+        var cns = document.getElementById(cns);
+        var ctx = cns.getContext("2d");
+        var lineheight = lh;
+        var text = text;
+        ctx.width = cns.width;
+        ctx.height = cns.height;
+        ctx.clearRect(0, 0, ctx.width, ctx.height);
+        ctx.font = "18px 微软雅黑";
+        ctx.fillStyle = "#03a9f4";
+
+        //获取字符串的真实长度（字节长度）
+        function getTrueLength(str) {
+            var len = str.length,
+                truelen = 0;
+            for (var x = 0; x < len; x++) {
+                if (str.charCodeAt(x) > 128) {
+                    truelen += 2;
+                } else {
+                    truelen += 1;
+                }
+            }
+            return truelen;
+        }
+
+        //按字节长度截取字符串，返回substr截取位置
+        function cutString(str, leng) {
+            var len = str.length,
+                tlen = len,
+                nlen = 0;
+            for (var x = 0; x < len; x++) {
+                if (str.charCodeAt(x) > 128) {
+                    if (nlen + 2 < leng) {
+                        nlen += 2;
+                    } else {
+                        tlen = x;
+                        break;
+                    }
+                } else {
+                    if (nlen + 1 < leng) {
+                        nlen += 1;
+                    } else {
+                        tlen = x;
+                        break;
+                    }
+                }
+            }
+            return tlen;
+        }
+
+        for (var i = 1; getTrueLength(text) > 0; i++) {
+            var tl = cutString(text, rw);
+            ctx.fillText(text.substr(0, tl).replace(/^\s+|\s+$/, ""), 5, i * lineheight + 5);
+            text = text.substr(tl);
+        }
+    }
+
+    apiready = function() {
+        api.parseTapmode();
+        getQuestion();
+    };
+
+    var canvas = document.getElementById('canvas');
+    var canvasCtx = canvas.getContext('2d');
+    var times = 4000;
+    //绘制蒙层
+    canvasCtx.fillStyle = 'gray';
+    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+    //开刮
+    canvas.ontouchstart = function() {
+        //鼠标点下并且移动才会有刮得效果
+        if (times == 0) {
+            canvas.ontouchmove = function(e) {
+                var event = window.event;
+                //获取鼠标位置
+                var x = event.changedTouches[0].clientX - canvas.offsetLeft;
+                var y = event.changedTouches[0].clientY - canvas.offsetTop;
+                //设置图形组合方案
+                canvasCtx.globalCompositeOperation = 'destination-out';
+                //              a.clearRect(x-25,y-25,50,50);
+                //设置橡皮擦的形状
+                canvasCtx.beginPath();
+                canvasCtx.arc(x, y, 35, 0, Math.PI * 2, false);
+
+                canvasCtx.fillStyle = 'rgba(0,0,0,1)';
+                canvasCtx.fill();
+                canvasCtx.globalCompositeOperation = 'source-over';
+            }
+        }
+    };
+    //当鼠标松开的时候停止清除
+    window.ontouchend = function() {
+        var transparent = etTransparentPercent(canvasCtx, canvas.width, canvas.height);
+        if (transparent > 80 && times == 0) {
+            getQuestion();
+        }
+    };
+
+    function etTransparentPercent(ctx, width, height) {
+        var imgData = ctx.getImageData(0, 0, width, height),
+            pixles = imgData.data,
+            transPixs = [];
+        for (var i = 0, j = pixles.length; i < j; i += 4) {
+            var a = pixles[i + 3];
+            if (a < 128) {
+                transPixs.push(i);
+            }
+        }
+        return (transPixs.length / (pixles.length / 4) * 100).toFixed(2);
+    }
+
+    function getQuestion() {
+        var quest = '',
+            res = '';
+        times = 4000;
+        api.ajax({
+            url: 'https://api.tianapi.com/txapi/naowan/?key=3ebe9a60ee8c5b57e681d18b864cf3f3',
+            method: 'get',
+            cache: 'true'
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.code == '200') {
+                    quest = ret.newslist[0].quest;
+                    res = ret.newslist[0].result;
+                } else
+                    api.toast({
+                        msg: ret.msg,
+                        duration: 3000,
+                        location: 'bottom'
+                    });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+        var flag = setInterval(function() {
+            if (times == 0) {
+                clearInterval(flag);
+                $api.html($api.byId('quest'), "  " + quest + "<div id='text'></div>");
+                $api.html($api.byId('text'), "");
+                canvasCtx.fillStyle = 'gray';
+                canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+                canvasCtx.fillStyle = 'rgba(0,0,0,1)';
+                writeTextOnCanvas("myCanvas", 21, 27, res);
+            } else {
+                $api.html($api.byId('quest'), "<div id='text'></div>");
+                times = times - 1000;
+                $api.html($api.byId('text'), "" + (times / 1000));
+            }
+        }, 1000);
+    }
+</script>
+
+</html>

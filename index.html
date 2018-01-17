@@ -29,16 +29,9 @@
                 url: './html/main.html',
                 bounces: false
             }
-        }, function(ret, err) {
-            if (ret.event == 'close') {
-                api.setStatusBarStyle({
-                    style: 'light'
-                });
-            } else {
-                api.setStatusBarStyle({
-                    style: 'dark'
-                });
-            }
+        });
+        api.setStatusBarStyle({
+            style: 'light'
         });
         api.lockSlidPane();
     }

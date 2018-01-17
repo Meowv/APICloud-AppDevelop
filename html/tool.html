@@ -6,10 +6,136 @@
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>tool</title>
+    <link rel="stylesheet" href="../css/aui.css">
+    <style>
+        .color-337ab7 {
+            color: #337ab7
+        }
+
+        .color-d9534f {
+            color: #d9534f
+        }
+
+        .color-f0ad4e {
+            color: #f0ad4e
+        }
+
+        .color-5cb85c {
+            color: #5cb85c
+        }
+
+        .color-52ace5 {
+            color: #52ace5
+        }
+    </style>
 </head>
 
 <body>
-tool
+    <section class="aui-grid aui-margin-b-15">
+        <div class="aui-row">
+            <div class="aui-col-xs-3 color-337ab7" tapmode onclick="openWin('joke','./tools/joke/joke.html')">
+                <i class="aui-iconfont">笑</i>
+                <div class="aui-grid-label">笑话大全</div>
+            </div>
+            <div class="aui-col-xs-3 color-337ab7" tapmode onclick="openWin('brain_sharp','./tools/brain_sharp/brain_sharp.html')">
+                <i class="aui-iconfont">脑</i>
+                <div class="aui-grid-label">脑筋急转弯</div>
+            </div>
+            <div class="aui-col-xs-3 color-337ab7" tapmode onclick="openWin('idioms_dictionary','./tools/idioms_dictionary/idioms_dictionary.html')">
+                <i class="aui-iconfont">成</i>
+                <div class="aui-grid-label">成语词典</div>
+            </div>
+            <div class="aui-col-xs-3 color-337ab7">
+                <i class="aui-iconfont">历</i>
+                <div class="aui-grid-label">历史上今天</div>
+            </div>
+            <div class="aui-col-xs-3 color-d9534f">
+                <i class="aui-iconfont">汇</i>
+                <div class="aui-grid-label">汇率转换</div>
+            </div>
+            <div class="aui-col-xs-3 color-d9534f">
+                <i class="aui-iconfont">火</i>
+                <div class="aui-grid-label">火星文转换</div>
+            </div>
+            <div class="aui-col-xs-3 color-d9534f">
+                <i class="aui-iconfont">QQ</i>
+                <div class="aui-grid-label">QQ测吉凶</div>
+            </div>
+            <div class="aui-col-xs-3 color-d9534f">
+                <i class="aui-iconfont">周</i>
+                <div class="aui-grid-label">周公解梦</div>
+            </div>
+        </div>
+    </section>
+    <section class="aui-grid aui-margin-b-15">
+        <div class="aui-row">
+            <div class="aui-col-xs-3 color-f0ad4e">
+                <i class="aui-iconfont">身</i>
+                <div class="aui-grid-label">身份证查询</div>
+            </div>
+            <div class="aui-col-xs-3 color-f0ad4e">
+                <i class="aui-iconfont">手</i>
+                <div class="aui-grid-label">手机查询</div>
+            </div>
+            <div class="aui-col-xs-3 color-f0ad4e">
+                <i class="aui-iconfont">IP</i>
+                <div class="aui-grid-label">IP查询</div>
+            </div>
+            <div class="aui-col-xs-3 color-f0ad4e">
+                <i class="aui-iconfont">银</i>
+                <div class="aui-grid-label">银行卡查询</div>
+            </div>
+            <div class="aui-col-xs-3 color-5cb85c">
+                <i class="aui-iconfont">万</i>
+                <div class="aui-grid-label">万年历</div>
+            </div>
+            <div class="aui-col-xs-3 color-5cb85c">
+                <i class="aui-iconfont">天</i>
+                <div class="aui-grid-label">天气预报</div>
+            </div>
+            <div class="aui-col-xs-3 color-5cb85c">
+                <i class="aui-iconfont">美</i>
+                <div class="aui-grid-label">美女图</div>
+            </div>
+            <div class="aui-col-xs-3 color-5cb85c">
+                <i class="aui-iconfont">2048</i>
+                <div class="aui-grid-label">2048</div>
+            </div>
+        </div>
+    </section>
+    <section class="aui-grid">
+        <div class="aui-row">
+            <div class="aui-col-xs-3 color-52ace5">
+                <i class="aui-iconfont">中</i>
+                <div class="aui-grid-label">中国象棋</div>
+            </div>
+            <div class="aui-col-xs-3 color-52ace5">
+                <i class="aui-iconfont">五</i>
+                <div class="aui-grid-label">五子棋</div>
+            </div>
+            <div class="aui-col-xs-3 color-52ace5">
+                <i class="aui-iconfont">Flappy</i>
+                <div class="aui-grid-label">Flappy</div>
+            </div>
+            <div class="aui-col-xs-3 color-52ace5">
+                <i class="aui-iconfont">水</i>
+                <div class="aui-grid-label">水滴效果</div>
+            </div>
+        </div>
+    </section>
 </body>
-<script src="./script/api.js"></script>
+<script src="../script/api.js"></script>
+<script>
+    apiready = function() {
+
+    };
+
+    function openWin(name, url) {
+        api.openWin({
+            name: name,
+            url: url
+        });
+    }
+</script>
+
 </html>

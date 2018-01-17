@@ -7,7 +7,6 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>main</title>
     <link rel="stylesheet" href="../css/aui.css">
-    <link rel="stylesheet" href="../css/iconfont/iconfont.css">
     <style>
         html,
         body {
@@ -118,10 +117,6 @@
                 api.toLauncher();
             }
         });
-
-        api.setStatusBarStyle({
-            style: 'light'
-        });
     }
 
     // 打开向导页面和 frame 组
@@ -145,22 +140,22 @@
                 frames: [{
                     name: 'home',
                     url: 'home.html',
-                    bgColor: '#fff',
+                    bgColor: '#F0EFF5',
                     bounces: true
                 }, {
                     name: 'tool',
                     url: 'tool.html',
-                    bgColor: '#fff',
+                    bgColor: '#F0EFF5',
                     bounces: true
                 }, {
                     name: 'blog',
                     url: 'blog.html',
-                    bgColor: '#fff',
+                    bgColor: '#F0EFF5',
                     bounces: true
                 }, {
                     name: 'mine',
                     url: 'mine.html',
-                    bgColor: '#fff',
+                    bgColor: '#F0EFF5',
                     bounces: true
                 }]
             });
@@ -221,13 +216,6 @@
             $api.removeCls(headers[i], 'active');
         }
         $api.addCls(headers[index], 'active');
-    }
-
-    // 打开侧边栏
-    function openSlidPane() {
-        // api.openSlidPane({
-        //     type: 'left'
-        // });
     }
 </script>
 

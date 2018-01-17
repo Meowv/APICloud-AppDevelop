@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>joke_pic</title>
+    <link rel="stylesheet" href="../../../css/aui.css">
+    <style>
+        .padding-vertical-bottom-30 {
+            padding-bottom: 30px;
+        }
+
+        .div-3 {
+            clear: both;
+            width: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+            display: table;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .div-3-div {
+            float: left;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            width: 100%;
+            display: table-cell;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            margin-bottom: 10px;
+        }
+
+        .div-3-img {
+            width: 100%;
+            display: block;
+        }
+
+        .div-3-p {
+            text-align: center;
+            font-size: 1.0rem;
+            padding-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="list"></div>
+</body>
+<script type="text/template" id="temp_jock_pic">
+    {{~it:value:index}}
+    <div class="padding-vertical-bottom-30"></div>
+    <div class="div-3 ">
+        <div class="div-3-div">
+            <img src={{=value.url}} class="div-3-img" />
+            <div class="div-3-p">{{=value.content}}</div>
+        </div>
+    </div>
+    {{~}}
+</script>
+<script src="../../../script/api.js"></script>
+<script src="../../../script/doT.min.js"></script>
+<script>
+    apiready = function() {
+        showProgress();
+        getJokeList();
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function(ret, err) {
+            showProgress();
+            getJokeList();
+        });
+    }
+
+    function showProgress() {
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '拼命加载中...',
+            text: '请稍等...',
+            modal: false
+        });
+    }
+
+    function getJokeList() {
+        api.ajax({
+            url: 'http://v.juhe.cn/joke/randJoke.php?key=5e7718daf693c9559045d7a61138720f&type=pic',
+            method: 'get',
+            cache: 'true'
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.error_code == 0) {
+                    var temp_jock_pic = doT.template($api.byId('temp_jock_pic').innerHTML);
+                    $api.html($api.dom('.list'), temp_jock_pic(ret.result));
+                } else {
+                    api.toast({
+                        msg: ret.reason,
+                        duration: 3000,
+                        location: 'bottom'
+                    });
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+            api.hideProgress();
+            api.refreshHeaderLoadDone();
+        });
+    }
+</script>
+
+</html>
