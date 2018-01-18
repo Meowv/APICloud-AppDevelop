@@ -55,11 +55,6 @@
                 工具
             </div>
         </header>
-        <header class="aui-bar aui-bar-nav headdisplay" id="blog-header">
-            <div class="aui-title">
-                当然我在瞎扯
-            </div>
-        </header>
         <header class="aui-bar aui-bar-nav headdisplay" id="my-header">
             <div class="aui-title">
                 我的
@@ -75,10 +70,6 @@
         <div class="aui-bar-tab-item" tapmode>
             <i class="aui-iconfont aui-icon-gear"></i>
             <div class="aui-bar-tab-label">工具</div>
-        </div>
-        <div class="aui-bar-tab-item" tapmode>
-            <i class="aui-iconfont aui-icon-edit"></i>
-            <div class="aui-bar-tab-label">博客</div>
         </div>
         <div class="aui-bar-tab-item" tapmode>
             <i class="aui-iconfont aui-icon-my"></i>
@@ -148,19 +139,12 @@
                     bgColor: '#F0EFF5',
                     bounces: true
                 }, {
-                    name: 'blog',
-                    url: 'blog.html',
-                    bgColor: '#F0EFF5',
-                    bounces: true
-                }, {
                     name: 'mine',
                     url: 'mine.html',
                     bgColor: '#F0EFF5',
                     bounces: true
                 }]
             });
-
-            api.unlockSlidPane();
         } else {
             api.openFrameGroup({
                 name: 'guide',

@@ -1,0 +1,31 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hui</title>
+    <link href="../../../css/Hui.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <p class="H-padding-horizontal-both-10 H-font-size-16">常见下拉选择器</p>
+    <div class="H-flexbox-horizontal H-margin-vertical-bottom-10">
+        <input type="text" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择您的性别" readonly="readonly" tapmode="" onclick="H.selectTip(this, ['男', '女', '人妖', '保密'])" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+    </div>
+    <div class="H-flexbox-horizontal H-margin-vertical-bottom-10">
+        <input type="text" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择您的兴趣" readonly="readonly" tapmode="" onclick="H.selectTip(this, ['篮球', '足球', '羽毛球', '无限'])" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+    </div>
+    <p class="H-padding-horizontal-both-10 H-font-size-16">带回调的下拉选择器</p>
+    <div class="H-flexbox-horizontal H-margin-vertical-bottom-10">
+        <input type="text" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择您的性别" readonly="readonly" tapmode="" onclick="H.selectTip(this, ['男', '女', '人妖', '保密'], function (index, value) { H.alert('当前的索引为：' + index + '，' + '值为：' + value); }, function (index, value) { H.toast('你点击了取消'); })" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+    </div>
+    <div class="H-flexbox-horizontal H-margin-vertical-bottom-10">
+        <input type="text" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择您的兴趣" readonly="readonly" tapmode="" onclick="H.selectTip(this, ['篮球', '足球', '羽毛球', '无限'], function (index, value) { H.alert('当前的索引为：' + index + '，' + '值为：' + value); }, function (index, value) { H.toast('你点击了取消'); })" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+    </div>
+    <script src="../../../script/H.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    </script>
+</body>
+</html>

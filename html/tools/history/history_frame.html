@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>history_frame</title>
+    <link rel="stylesheet" href="../../../css/aui.css">
+</head>
+
+<body>
+    <section class="aui-content-padded">
+        <h1>请选择日期</h1>
+    </section>
+    <div class="aui-content aui-margin-t-15">
+        <ul class="aui-list aui-form-list">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label-icon">
+                        <i class="aui-iconfont aui-icon-date"></i>
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input id="date" type="text" tapmode readonly="readonly" placeholder="请选择日期" onclick="selectDateAndOpenHistoryDetail();">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="../../../script/api.js"></script>
+<script>
+    apiready = function() {
+        api.parseTapmode();
+    }
+
+    function selectDateAndOpenHistoryDetail() {
+        api.openPicker({
+            type: 'date_time',
+            date: new Date(),
+            title: '请选择日期'
+        }, function(ret, err) {
+            if (ret) {
+                var date = ret.year + '-' + ret.month + '-' + ret.day;
+                $api.val($api.byId('date'), date);
+                api.openWin({
+                    name: 'history_detail',
+                    url: './history_detail.html',
+                    pageParam: {
+                        year: ret.year,
+                        day: ret.day,
+                        month: ret.month
+                    }
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+</script>
+
+</html>

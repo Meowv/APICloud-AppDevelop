@@ -9,24 +9,15 @@
     <link rel="stylesheet" href="../../../css/aui.css">
     <style>
         .header {
-            min-height: 44px;
             background-color: #38373D;
-            height: 80px;
-            text-align: center;
-            padding-top: 20px;
-            padding-bottom: 15px;
-            padding-left: 5px;
-            padding-right: 5px;
-            box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            font-size: 1.5rem;
             color: #fff;
         }
     </style>
 </head>
 
 <body>
-    <header class="aui-bar header" id='header'>
+    <header class="aui-bar aui-bar-nav header" id='header'>
+        <a class="aui-pull-left" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span>返回 </a>
         <div class="aui-title">
             脑筋急转弯
         </div>

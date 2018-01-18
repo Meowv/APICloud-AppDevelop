@@ -9,7 +9,46 @@
 </head>
 
 <body>
-home
+    home
 </body>
-<script src="./script/api.js"></script>
+<script src="../script/api.js"></script>
+<script>
+    apiready = function() {
+        UIScrollPicture();
+    }
+
+    function UIScrollPicture() {
+        var UIScrollPicture = api.require('UIScrollPicture');
+        UIScrollPicture.open({
+            rect: {
+                x: 0,
+                y: 0,
+                w: api.winWidth,
+                h: 200
+            },
+            data: {
+                paths: [
+                    'widget://image/1.jpg',
+                    'widget://image/2.jpg',
+                    'widget://image/3.jpg',
+                ],
+                captions: []
+            },
+            styles: {
+                indicator: {
+                    align: 'center',
+                    color: '#FFFFFF',
+                    activeColor: '#09BB07'
+                }
+            },
+            placeholderImg: 'widget://image/1.jpg',
+            contentMode: 'scaleToFill',
+            interval: 3,
+            fixedOn: api.frameName,
+            loop: true,
+            fixed: false
+        });
+    }
+</script>
+
 </html>

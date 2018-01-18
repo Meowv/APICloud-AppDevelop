@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>currency</title>
+    <link rel="stylesheet" href="../../../css/aui.css">
+    <style>
+        .header {
+            background-color: #38373D;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav header" id='header'>
+        <a class="aui-pull-left" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span>返回</a>
+        <div class="aui-title">
+            货币列表
+        </div>
+    </header>
+</body>
+<script src="../../../script/api.js"></script>
+<script>
+    apiready = function() {
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        var headerH = $api.offset(header).h;
+
+        api.openFrame({
+            name: 'currency_frame',
+            url: './currency_frame.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: 'auto'
+            },
+            pageParam: {
+                Paramname: api.pageParam.Paramname
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0)',
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true
+        });
+    }
+</script>
+
+</html>

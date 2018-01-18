@@ -8,18 +8,9 @@
     <title>joke</title>
     <link rel="stylesheet" href="../../../css/aui.css">
     <style type="text/css">
-        .aui-bar-03a9f4 {
-            min-height: 44px;
+        .header {
             background-color: #38373D;
-            height: 80px;
-            text-align: center;
-            padding-top: 20px;
-            padding-bottom: 15px;
-            padding-left: 5px;
-            padding-right: 5px;
-            box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            font-size: 1.0rem;
+            color: #fff;
         }
 
         .aui-title {
@@ -34,24 +25,20 @@
         .aui-bar-nav .aui-bar-btn-item.aui-active {
             color: #38373D;
         }
-
-        #subheader {
-            padding-top: 40px;
-        }
     </style>
 </head>
 
 <body>
-    <header class="aui-bar aui-bar-03a9f4 aui-bar-nav" id='header'>
+    <header class="aui-bar aui-bar-nav header" id='header'>
+        <a class="aui-pull-left" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span>返回</a>
         <div class="aui-title">
-            笑话大全
-        </div>
-        <div class="aui-bar aui-bar-btn aui-bar-btn-round" id='subheader'>
-            <div class="aui-bar-btn-item aui-active" id="joke-item-1">
-                文字笑话
-            </div>
-            <div class="aui-bar-btn-item " id='joke-item-2'>
-                趣图笑话
+            <div class="aui-bar aui-bar-btn aui-bar-btn-round">
+                <div class="aui-bar-btn-item aui-active" id="joke-item-1">
+                    文字笑话
+                </div>
+                <div class="aui-bar-btn-item " id='joke-item-2'>
+                    趣图笑话
+                </div>
             </div>
         </div>
     </header>

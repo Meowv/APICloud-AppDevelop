@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>currency_frame</title>
+    <style>
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .current-index {
+            font-size: 0.8rem;
+            height: 80px;
+            width: 80px;
+            left: 50%;
+            top: 50%;
+            margin-left: -40px;
+            margin-top: -90px;
+            background: rgba(0, 0, 0, 0.5);
+            font-family: Arial;
+            display: none;
+            text-align: center;
+            line-height: 80px;
+        }
+
+        .current-letter {
+            position: fixed;
+            z-index: 100000;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            color: white;
+        }
+
+        .flexbox-vertical {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+            height: 100%;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .current-alphabetical {
+            position: fixed;
+            z-index: 10000;
+            width: 22px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+        }
+
+        .flex-item {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .current-index-index {
+            display: block;
+            font-size: 1.0rem;
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            display: box;
+            box-orient: horizontal;
+            box-pack: center;
+            box-align: center;
+        }
+
+        .paytypes {
+            overflow-y: auto;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+        }
+
+        .group-name {
+            font-size: 1.0rem;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        .theme-background-color-eee {
+            background-color: #eee;
+        }
+
+        .flexbox-horizontal {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            width: 100%;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .people-item-div {
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .people-item-div:after {
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform-origin: 0 0;
+            transform: scale(1);
+            -webkit-transform-origin: 0 0;
+            -webkit-transform: scale(1);
+            pointer-events: none;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .vertical-middle {
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-align: center;
+            display: box;
+            box-orient: horizontal;
+            box-align: center;
+        }
+
+        .touch-active {}
+
+        .touch-active:active {
+            background: #f4f4f4;
+        }
+
+        .people-item-text {
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 1.0rem;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="current-index current-letter"></div>
+    <div class="contact-index flexbox-vertical current-alphabetical">
+        <span class="flex-item current-index-index" data-index-name="A">A</span>
+        <span class="flex-item current-index-index" data-index-name="B">B</span>
+        <span class="flex-item current-index-index" data-index-name="C">C</span>
+        <span class="flex-item current-index-index" data-index-name="D">D</span>
+        <span class="flex-item current-index-index" data-index-name="E">E</span>
+        <span class="flex-item current-index-index" data-index-name="F">F</span>
+        <span class="flex-item current-index-index" data-index-name="G">G</span>
+        <span class="flex-item current-index-index" data-index-name="H">H</span>
+        <span class="flex-item current-index-index" data-index-name="I">I</span>
+        <span class="flex-item current-index-index" data-index-name="J">J</span>
+        <span class="flex-item current-index-index" data-index-name="K">K</span>
+        <span class="flex-item current-index-index" data-index-name="L">L</span>
+        <span class="flex-item current-index-index" data-index-name="M">M</span>
+        <span class="flex-item current-index-index" data-index-name="N">N</span>
+        <span class="flex-item current-index-index" data-index-name="O">O</span>
+        <span class="flex-item current-index-index" data-index-name="P">P</span>
+        <span class="flex-item current-index-index" data-index-name="Q">Q</span>
+        <span class="flex-item current-index-index" data-index-name="R">R</span>
+        <span class="flex-item current-index-index" data-index-name="S">S</span>
+        <span class="flex-item current-index-index" data-index-name="T">T</span>
+        <span class="flex-item current-index-index" data-index-name="U">U</span>
+        <span class="flex-item current-index-index" data-index-name="V">V</span>
+        <span class="flex-item current-index-index" data-index-name="W">W</span>
+        <span class="flex-item current-index-index" data-index-name="X">X</span>
+        <span class="flex-item current-index-index" data-index-name="Y">Y</span>
+        <span class="flex-item current-index-index" data-index-name="Z">Z</span>
+    </div>
+    <div class="contact-scroll-area paytypes">
+        <div class="contact-list">
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="A">
+                A
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('澳大利亚元(AUD)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        澳大利亚元(AUD)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('阿根廷比索(ARS)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        阿根廷比索(ARS)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('澳门元(MOP)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        澳门元(MOP)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('奥地利先令(ATS)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        奥地利先令(ATS)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="B">
+                B
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('保加利亚列弗(BGN)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        保加利亚列弗(BGN)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('冰岛克朗(ISK)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        冰岛克朗(ISK)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="C">
+                C
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('人民币(CNY)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        人民币(CNY)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="D">
+                D
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('丹麦克朗(DKK)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        丹麦克朗(DKK)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('德国马克(DEM)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        德国马克(DEM)
+                    </div>
+                </div>
+
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="F">
+                F
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('法国法郎(FRF)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        法国法郎(FRF)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('菲律宾比索(PHP)');" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        菲律宾比索(PHP)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="G">
+                G
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('港币(HKD)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        港币(HKD)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="H">
+                H
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('韩元(KER)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        韩元(KER)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="J">
+                J
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('加拿大元(CAD)');" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        加拿大元(CAD)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="L">
+                L
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('卢布(RUB)');" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        卢布(RUB)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('罗马尼亚新列伊(RON)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        罗马尼亚新列伊(RON)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="M">
+                M
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('美元(USD)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        美元(USD)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('墨西哥比索(MXN)');" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        墨西哥比索(MXN)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="N">
+                N
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('南非兰特(ZAR)');" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        南非兰特(ZAR)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="O">
+                O
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('欧元(EUR)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        欧元(EUR)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="P">
+                P
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('葡萄牙埃斯库多(PTE)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        葡萄牙埃斯库多(PTE)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="R">
+                R
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('日元(JPY)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        日元(JPY)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('瑞士法郎(CHF)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        瑞士法郎(CHF)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="S">
+                S
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('索马里先令(SOS)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        索马里先令(SOS)
+                    </div>
+                </div>
+
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="T">
+                T
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('泰国铢(THB)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        泰国铢(THB)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="W">
+                W
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('乌拉圭新比索(UYU)');" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        乌拉圭新比索(UYU)
+                    </div>
+                </div>
+
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="X">
+                X
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('西班牙比塞塔(ESP)');" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        西班牙比塞塔(ESP)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('希腊德拉克马(GRD)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        希腊德拉克马(GRD)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('新加坡元(SGD)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        新加坡元(SGD)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('新台币(TWD)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        新台币(TWD)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="Y">
+                Y
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('英镑(GBP)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        英镑(GBP)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('印度卢比(INR)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        印度卢比(INR)
+                    </div>
+                </div>
+                <div tapmode="" onclick="getData('越南盾(VND)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        越南盾(VND)
+                    </div>
+                </div>
+            </div>
+            <div class="group-name  group-name  theme-background-color-eee" data-group-name="Z">
+                Z
+            </div>
+            <div class="people-item">
+                <div tapmode="" onclick="getData('越南盾(CLP)')" class="flexbox-horizontal people-item-div vertical-middle touch-active">
+                    <div class="flex-item people-item-text">
+                        智利比索(CLP)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../../script/api.js"></script>
+<script>
+    apiready = function() {
+
+    }
+
+    function getData(ths) {
+        if (api.pageParam.Paramname == '0') {
+            api.sendEvent({
+                name: 'currency_1',
+                extra: {
+                    currency_1: ths
+                }
+            });
+        } else {
+            api.sendEvent({
+                name: 'currency_2',
+                extra: {
+                    currency_2: ths
+                }
+            });
+        }
+        api.openWin({
+            name: 'currency_conversion',
+            url: './currency_conversion.html'
+        });
+    }
+
+    function query(cssSelectorOrElement) {
+        return document.querySelector(cssSelectorOrElement);
+    }
+
+    function cssText(cssSelectorOrElement, cssString, parentSelectorOrElement) {
+        var that = this;
+        var selectors = [];
+        selectors = cssSelectorOrElement;
+        if (selectors.length > 0) {
+            for (var i = 0; i < selectors.length; i++) {
+                selectors[i].style.cssText = cssString;
+            }
+        }
+    }
+
+    var _clientHeight = window.innerHeight;
+    var indexObj = query(".contact-index");
+    var currentIndexObj = query(".current-index");
+    var contactListObj = query(".contact-list");
+    var scrollArea = query('.contact-scroll-area');
+    indexObj.style.height = _clientHeight + "px";
+    scrollArea.style.height = _clientHeight + "px";
+    // 索引字母个数
+    var indexSize = 26;
+    // 索引列表高度
+    var indexObj_height = indexObj.offsetHeight;
+    // 滚动到指定字母位置
+    function scrollToWord(word) {
+        if (word) {
+            var scrollObj = query(".group-name[data-group-name=" + word + "]");
+            if (scrollObj) {
+                scrollArea.scrollTop = scrollObj.offsetTop + document.documentElement.scrollTop;
+            }
+        }
+    }
+
+    // 计算字母对应位置
+    function calcWordToOffset(event) {
+        var touch = event.targetTouches[0];
+        var clientY = touch.clientY > 0 ? touch.clientY : 0;
+        var _index = Math.floor(clientY / (indexObj_height / indexSize)) + 97;
+        var word = "";
+        // A-Z
+        if (_index >= 97 && _index <= 122) {
+            currentIndexObj.innerHTML = String.fromCharCode(_index).toUpperCase();
+            word = String.fromCharCode(_index).toUpperCase();
+        } else {}
+        scrollToWord(word);
+    }
+
+    // 为字母索引绑定touch事件
+    // 一触摸触发
+    indexObj.addEventListener("touchstart", function(event) {
+        if (event.targetTouches.length == 1) {
+            // 显示当前字母
+            cssText(currentIndexObj, "display:block;");
+            // 高亮索引区域
+            indexObj.classList.add("theme-background-color-eee");
+            calcWordToOffset(event);
+        }
+    }, false);
+    // 触摸过程
+    indexObj.addEventListener("touchmove", function(event) {
+        if (event.targetTouches.length == 1) {
+            event.preventDefault();
+            calcWordToOffset(event);
+        }
+    }, false);
+    // 离开触摸
+    indexObj.addEventListener("touchend", function(event) {
+        // 显示当前字母
+        cssText(currentIndexObj, "display:none;");
+        // 高亮索引区域
+        indexObj.classList.remove("theme-background-color-eee");
+    }, false);
+</script>
+
+</html>

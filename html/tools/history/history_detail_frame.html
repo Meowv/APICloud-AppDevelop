@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>history_detail_frame</title>
+    <link rel="stylesheet" href="../../../css/aui.css">
+    <link rel="stylesheet" href="../../../css/swiper.min.css">
+    <style>
+        .text-light {
+            color: #ffffff;
+        }
+
+        .h20 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: box;
+            display: -webkit-box;
+            word-wrap: break-word;
+            white-space: normal !important;
+            -webkit-box-orient: vertical;
+            line-clamp: 10;
+            -webkit-line-clamp: 10;
+            padding: 1.0rem 0.75rem;
+        }
+
+        .text-center {
+            text-align: center !important;
+            -webkit-box-pack: center;
+            box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+
+        .sh {
+            display: none
+        }
+
+        .col-xs-4 {
+            width: 100%
+        }
+    </style>
+</head>
+
+<body>
+    <section class="aui-content" id="timeline"></section>
+</body>
+<script id="temp_timeline" type="text/x-dot-template">
+    <div class="aui-timeline">
+        <div class="aui-timeline-item-header" id="time"></div>
+        {{ for(var x in it) { }}
+        <div class="aui-timeline-item">
+            <div class="aui-timeline-item-label aui-bg-info text-light">NO.{{=""+(parseInt(x)+1)}}</div>
+            <div class="aui-timeline-item-inner">
+                <div class="aui-card-list">
+                    <div class="aui-card-list-header aui-border-b">
+                        <div>{{= it[x].title }}&nbsp;&nbsp; {{= it[x].date }}</div>
+                    </div>
+                    <div class="aui-card-list-content-padded h20" id="pad{{=x}}">
+                        {{=queryDetail(it[x].e_id,x) }}
+                    </div>
+                    <div class="aui-card-list-footer text-center sh" id="show{{=x}}" onclick="viewMore({{=x}})">
+                        查看更多
+                    </div>
+                    <div class="aui-card-list-content-padded">
+                        <div class="aui-row aui-row-padded" id="rowpad">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide" id="img{{=x}}0" style="display:none">
+                                        <div class="col-xs-4"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ } }}
+    </div>
+</script>
+<script src="../../../script/api.js"></script>
+<script src="../../../script/swiper.min.js"></script>
+<script src="../../../script/doT.min.js"></script>
+<script>
+    apiready = function() {
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '拼命加载中...',
+            text: '请稍等...',
+            modal: false
+        });
+        $api.text($api.byId('time'), api.pageParam.year + '年' + api.pageParam.month + '月' + api.pageParam.day + '日');
+
+        queryEvent();
+
+        api.parseTapmode();
+    }
+
+    function queryEvent() {
+        api.ajax({
+            url: 'http://v.juhe.cn/todayOnhistory/queryEvent.php?key=610b3adfb619fe1532c5df0d744f5b5b&date=' + api.pageParam.month + '/' + api.pageParam.day,
+            method: 'get',
+            cache: 'true'
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.error_code == '0') {
+                    var temp_timeline = doT.template($api.dom('#temp_timeline').innerHTML);
+                    $api.html($api.dom('#timeline'), temp_timeline(ret.result));
+                } else
+                    api.toast({
+                        msg: ret.reason,
+                        duration: 3000,
+                        location: 'bottom'
+                    });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        api.hideProgress();
+    }
+
+    var img = new Array();
+
+    function viewMore() {
+        if ($api.html($api.byId('show' + x)) == "查看更多") {
+            $api.html($api.byId('show' + x), "点击收缩");
+            $api.removeCls($api.byId('pad' + x), 'h20');
+        } else {
+            $api.html($api.byId('show' + x), "查看更多");
+            $api.addCls($api.byId('pad' + x), 'h20');
+        }
+    }
+
+    function queryDetail(e_id, x) {
+        api.ajax({
+            url: 'http://v.juhe.cn/todayOnhistory/queryDetail.php?key=610b3adfb619fe1532c5df0d744f5b5b&e_id=' + e_id,
+            method: 'get',
+            cache: 'true'
+        }, function(ret, err) {
+            if (ret.error_code == '0') {
+                $api.html($api.byId('pad' + x), ret.result[0].content);
+                var divhigh = $api.byId('pad' + x);
+                var divh = $api.offset(divhigh).h;
+
+                if (divh >= 247) {
+                    $api.removeCls($api.byId('show' + x), 'sh');
+                } else
+                    $api.addCls($api.byId('show' + x), 'sh');
+                img[x] = new Array();
+                for (var j = 0; j < ret.result[0].picNo; j++) {
+                    var q = j + 1;
+                    $api.after($api.byId('img' + x + "" + j), "<div class='swiper-slide' id='img" + x + "" + q + "' ><div class='col-xs-4' ><img src=" + ret.result[0].picUrl[j].url + " onclick='imgShow(" + x + "," + j + ")' /></div></div>");
+                    img[x][j] = ret.result[0].picUrl[j].url;
+                }
+                var swiper = new Swiper('.swiper-container', {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                    freeMode: true
+                });
+            } else {
+                $api.html($api.byId('pad' + x), '');
+            }
+        });
+    }
+
+    function imgShow(x, j) {
+        var photoBrowser = api.require('photoBrowser');
+        photoBrowser.open({
+            iimages: img[x],
+            bgColor: '#000',
+            activeIndex: j
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.eventType == 'click') {
+                    photoBrowser.close();
+                }
+                api.execScript({
+                    name: 'history_detail',
+                    script: 'isOpen(true);'
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function imgClose() {
+        var photoBrowser = api.require('photoBrowser');
+        photoBrowser.close();
+    }
+</script>
+
+</html>
