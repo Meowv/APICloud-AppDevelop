@@ -15,6 +15,8 @@
         openSlidLayout();
     }
 
+    var jpush = null;
+
     function openSlidLayout() {
         api.openSlidLayout({
             type: 'left',
@@ -34,6 +36,40 @@
             style: 'light'
         });
         api.lockSlidPane();
+
+        jpush = api.require("ajpush");
+        // 初始化
+        jpush.init(function(ret) {});
+        //监听通知被点击后收到的数据
+        jpush.setListener(
+            function(ret) {}
+        );
+        api.addEventListener({
+            name: 'appintent'
+        }, function(ret, err) {});
+        api.addEventListener({
+            name: 'noticeclicked'
+        }, function(ret, err) {});
+        //监听应用进入后台，通知jpush暂停事件
+        api.addEventListener({
+            name: 'pause'
+        }, function(ret, err) {
+            onPause();
+        });
+        //监听应用恢复到前台，通知jpush恢复事件
+        api.addEventListener({
+            name: 'resume'
+        }, function(ret, err) {
+            onResume();
+        });
+    }
+
+    function onResume() {
+        jpush.onResume();
+    }
+
+    function onPause() {
+        jpush.onPause();
     }
 </script>
 
