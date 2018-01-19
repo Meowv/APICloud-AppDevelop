@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>dream_frame</title>
+    <link rel="stylesheet" href="../../../css/aui_1.1.7.css">
+    <link rel="stylesheet" href="../../../css/aui-accordion.css">
+</head>
+
+<body>
+    <div class="aui-searchbar-wrap demo" id="search">
+        <div class="aui-searchbar aui-border-radius" tapmode onclick="doSearch()">
+            <i class="aui-iconfont aui-icon-search"></i>
+            <div class="aui-searchbar-text">
+                周公解梦
+            </div>
+            <div class="aui-searchbar-input">
+                <input type="text" id='keywords' placeholder="请输入关键词" autocapitalize="off">
+            </div>
+        </div>
+        <div class="aui-searchbar-cancel aui-text-info" tapmode onclick="searchDream()">
+            查询
+        </div>
+        <div class="aui-searchbar-cancel aui-text-info" id="cancel" tapmode onclick="cancelSearch()">
+            取消
+        </div>
+    </div>
+    <p class="aui-text-center  aui-padded-20">
+        查询结果
+    </p>
+    <div class="aui-card" id="dream"></div>
+</body>
+<script id="temp_dream" type="text/x-dot-template">
+    <ul class="aui-list-view">
+        {{ for(var x in it) { }}
+        <li class="aui-list-view-cell aui-fold">
+            <div class="aui-arrow-right aui-text-info">{{= it[x].title }}</div>
+            <div class="aui-fold-content">
+                <ul class="aui-list-view">
+                    {{ for(var y in it[x].list){ }}
+                    <li class="aui-list-view-cell">
+                        {{=(it[x].list[y]) }}
+                    </li>
+                    {{ } }}
+                </ul>
+            </div>
+        </li>
+        {{ } }}
+    </ul>
+</script>
+<script src="../../../script/api.js"></script>
+<script src="../../../script/doT.min.js"></script>
+<script src="../../../script/aui-accordion.js"></script>
+<script src="../../../script/aui-tap.js"></script>
+<script>
+    apiready = function() {
+        api.parseTapmode();
+    }
+
+    function searchDream() {
+        api.ajax({
+            url: 'http://v.juhe.cn/dream/query?key=d9b0f0b173278b99a6662ef0d1e4e2c7&q=' + $api.byId('keywords').value + '&full=1',
+            method: 'get',
+            cache: 'true'
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.error_code == '0') {
+                    var x = 0;
+                    var temp_dream = doT.template($api.dom('#temp_dream').innerHTML);
+                    $api.html($api.dom('#dream'), temp_dream(ret.result));
+                    if (x % 2 == 0) {
+                        new auiAccordion({
+                            callback: function loadCallBack(event) {}
+                        });
+                        new auiTap();
+                        x = x + 1;
+                    } else {
+                        new auiAccordion({
+                            callback: function loadCallBack(event) {}
+                        });
+                        new auiTap();
+                        x = x + 1;
+                        searchDream();
+                    }
+                } else {
+                    api.toast({
+                        msg: ret.reason,
+                        duration: 3000,
+                        location: 'bottom'
+                    });
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function doSearch() {
+        $api.addCls($api.dom(".aui-searchbar-wrap"), "focus");
+        $api.dom('.aui-searchbar-input input').focus();
+    }
+
+    function cancelSearch() {
+        $api.addEvt($api.dom("#cancel"), 'click', function() {
+            $api.removeCls($api.dom(".aui-searchbar-wrap.focus"), "focus");
+        });
+    }
+</script>
+
+</html>

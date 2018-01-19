@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>phone_frame</title>
+    <link rel="stylesheet" href="../../../css/aui.css">
+</head>
+
+<body>
+    <div class="aui-searchbar" id="search">
+        <div class="aui-searchbar-input aui-border-radius">
+            <i class="aui-iconfont aui-icon-search"></i>
+            <input type="search" placeholder="请输入手机号" id="search-input" autocapitalize="off">
+            <div class="aui-searchbar-clear-btn">
+                <i class="aui-iconfont aui-icon-close"></i>
+            </div>
+        </div>
+        <div class="aui-searchbar-btn" tapmode>取消</div>
+    </div>
+    <div class="aui-content">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="mobilenumber">手机号:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="mobilearea">归属地:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="mobiletype">卡类型:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="areacode">区号:</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-t-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" id="postcode">邮政编码:</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="../../../script/api.js"></script>
+<script>
+    apiready = function() {
+        api.parseTapmode();
+    }
+
+    function searchPhone(phone) {
+        api.ajax({
+            url: 'http://api.avatardata.cn/MobilePlace/LookUp?key=aef2ed1c004148cdb0caee5110dfc11f&mobileNumber=' + phone,
+            method: 'get',
+            cache: 'true'
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.error_code == 0) {
+                    var mobilenumber = $api.byId('mobilenumber');
+                    var mobilearea = $api.byId('mobilearea');
+                    var mobiletype = $api.byId('mobiletype');
+                    var areacode = $api.byId('areacode');
+                    var postcode = $api.byId('postcode');
+
+                    $api.html(mobilenumber, '手机号：' + phone);
+                    $api.html(mobilearea, '归属地：' + ret.result.mobilearea);
+                    $api.html(mobiletype, '卡类型：' + ret.result.mobiletype);
+                    $api.html(areacode, '区号：' + ret.result.areacode);
+                    $api.html(postcode, '邮政编码：' + ret.result.postcode);
+                } else {
+                    api.toast({
+                        msg: ret.reason,
+                        duration: 3000,
+                        location: 'bottom'
+                    });
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    var searchBar = document.querySelector(".aui-searchbar");
+    var searchBarInput = document.querySelector(".aui-searchbar input");
+    var searchBarBtn = document.querySelector(".aui-searchbar .aui-searchbar-btn");
+    var searchBarClearBtn = document.querySelector(".aui-searchbar .aui-searchbar-clear-btn");
+    if (searchBar) {
+        searchBarInput.onclick = function() {
+            searchBarBtn.style.marginRight = 0;
+        }
+        searchBarInput.oninput = function() {
+            if (this.value.length) {
+                searchBarClearBtn.style.display = 'block';
+                searchBarBtn.classList.add("aui-text-info");
+                searchBarBtn.textContent = "查询";
+            } else {
+                searchBarClearBtn.style.display = 'none';
+                searchBarBtn.classList.remove("aui-text-info");
+                searchBarBtn.textContent = "取消";
+            }
+        }
+    }
+    searchBarClearBtn.onclick = function() {
+        this.style.display = 'none';
+        searchBarInput.value = '';
+        searchBarBtn.classList.remove("aui-text-info");
+        searchBarBtn.textContent = "取消";
+    }
+    searchBarBtn.onclick = function() {
+        var phone = searchBarInput.value;
+        if (phone.length) {
+            searchBarInput.blur();
+            searchPhone(phone);
+        } else {
+            this.style.marginRight = "-" + this.offsetWidth + "px";
+            searchBarInput.value = '';
+            searchBarInput.blur();
+        }
+    }
+</script>
+
+</html>
