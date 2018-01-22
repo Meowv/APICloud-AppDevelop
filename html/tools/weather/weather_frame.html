@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>weather_frame</title>
+    <link rel="stylesheet" href="../../../css/aui.css">
+    <style>
+        .bg {
+            background-color: #03a9f4;
+            width: 100%;
+            height: auto;
+        }
+
+        .future {
+            top: 50px;
+            width: 100%;
+            height: 200px;
+        }
+
+        .left {
+            float: left;
+            width: 50%;
+        }
+
+        .right {
+            top: 50px;
+            width: 50%;
+            float: right;
+            position: relative;
+        }
+
+        .img-container {
+            top: 50px;
+            width: 85px;
+            height: 85px;
+            position: relative;
+            margin: 0 auto;
+            font-size: 0;
+            overflow: visible;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .img-container img {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border: 2px solid #7facf9;
+            margin: 0 auto 0 auto;
+        }
+
+        .unames {
+            color: #fff;
+            font-size: 18px;
+            color: #fff;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .temp {
+            color: #fff;
+            font-size: 30px;
+            color: #fff;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .weather {
+            color: #fff;
+            font-size: 18px;
+            color: #fff;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .wind {
+            color: #fff;
+            font-size: 18px;
+            color: #fff;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .otherinformation {
+            top: 200px;
+        }
+
+        .aui-border-t {
+            border-top: 1px solid #FFFFFF;
+            padding: 15px 15px 5px 15px;
+            color: #fff;
+        }
+
+        .aui-border-b {
+            border-bottom: 1px solid #FFFFFF;
+            padding: 5px 15px 15px 15px;
+            color: #fff;
+        }
+
+        .padding {
+            padding: 5px 15px;
+            color: #fff;
+        }
+
+        .padding-main {
+            padding: 10px 15px 0px 15px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <div class="future">
+            <div class="left">
+                <div class="img-container">
+                    <img id="portrait" src="./images/sunny.png" />
+                    <p class="unames" id="name" onclick="">
+                        待刷新
+                    </p>
+                </div>
+            </div>
+            <div class="right">
+                <p class="temp" id="temp" onclick="">
+                    待刷新
+                </p>
+                <p class="weather" id="weather">
+                    待刷新
+                </p>
+                <p class="wind" id="wind">
+                    下拉刷新
+                </p>
+            </div>
+        </div>
+        <div class="otherinformation">
+            <div class="aui-border-t" id="city">
+                城市:请下拉刷新
+            </div>
+            <div class="padding" id="address">
+                地址:请下拉刷新
+            </div>
+            <div class="padding" id="dressing_index">
+                穿衣指数：
+            </div>
+            <div class="padding" id="dressing_advice">
+                穿衣建议：
+            </div>
+            <div class="padding" id="uv_index">
+                紫外线强度：
+            </div>
+            <div class="padding" id="wash_index">
+                洗车指数：
+            </div>
+            <div class="padding" id="travel_index">
+                旅游指数：
+            </div>
+            <div class="aui-border-b" id="exercise_index">
+                晨练指数：
+            </div>
+            <div class="padding-main">
+                未来几天天气
+            </div>
+            <div id="main" style="width:100%;height:180px;"></div>
+        </div>
+    </div>
+</body>
+<script src="../../../script/api.js"></script>
+<script src="../../../script/echarts.min.js"></script>
+<script>
+    apiready = function() {
+        showProgress();
+        getWeatherInfo();
+        api.parseTapmode();
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function(ret, err) {
+            showProgress();
+            getWeatherInfo();
+            api.parseTapmode();
+        });
+    }
+
+    function showProgress() {
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '拼命加载中...',
+            text: '请稍等...',
+            modal: false
+        });
+    }
+
+    option = {
+        backgroundColor: '#03a9f4',
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            show: false,
+            data: ['最高气温', '最低气温']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true,
+
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: [{
+            type: 'category',
+            boundaryGap: true,
+            axisLine: {
+
+                lineStyle: {
+                    color: '#FFF'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#FFF'
+                }
+            },
+            splitLine: {
+                show: false
+            },
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        }],
+        yAxis: [{
+            axisLine: {
+                onZero: false,
+
+                lineStyle: {
+                    color: '#FFF'
+                }
+            },
+            axisLabel: {
+                interval: '0',
+                textStyle: {
+                    color: '#FFF'
+                }
+            },
+            type: 'value'
+        }],
+        axis: [{
+            axisLineshow: false
+        }],
+        series: [{
+            name: '最高气温',
+            type: 'line',
+            stack: '最高气温',
+            data: [12, 13, 20, 24, 19, 23, 21]
+        }, {
+            name: '最低气温',
+            type: 'line',
+            stack: '最低气温',
+            data: [2, 3, 10, 24, 1, 10, 10]
+        }]
+    };
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init($api.byId('main'));
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    function getWeatherInfo() {
+        var bMap = api.require('bMap');
+        bMap.getLocation({
+            accuracy: '100m',
+            autoStop: true,
+            filter: 1
+        }, function(ret, err) {
+            if (ret.status) {
+                var lon = ret.lon;
+                var lat = ret.lat;
+                bMap.getNameFromCoords({
+                    lon: lon,
+                    lat: lat
+                }, function(ret, err) {
+                    if (ret.status) {
+                        $api.html($api.byId('city'), '城市:' + ret.province + ret.city + ret.district);
+                        $api.html($api.byId('address'), '地址:' + ret.address);
+                    }
+                });
+                api.ajax({
+                    url: 'http://v.juhe.cn/weather/geo?format=2&key=603efbc118fdaa635d93f2f6c6ca5433&lon=' + lon + '&lat=' + lat,
+                    method: 'get',
+                    cache: 'true'
+                }, function(ret, err) {
+                    if (ret) {
+                        if (ret.error_code == '0') {
+                            $api.html($api.byId('name'), ret.result.today.weather);
+                            $api.html($api.byId('temp'), ret.result.today.temperature);
+                            $api.html($api.byId('wind'), ret.result.today.wind);
+                            $api.html($api.byId('dressing_index'), '穿衣指数：' + ret.result.today.dressing_index);
+                            $api.html($api.byId('dressing_advice'), '穿衣建议' + ret.result.today.dressing_advice);
+                            $api.html($api.byId('uv_index'), '紫外线强度：' + ret.result.today.uv_index);
+                            $api.html($api.byId('wash_index'), '洗车指数：' + ret.result.today.wash_index);
+                            $api.html($api.byId('travel_index'), '旅游指数：' + ret.result.today.travel_index);
+                            $api.html($api.byId('exercise_index'), '晨练指数：' + ret.result.today.exercise_index);
+                            if (ret.result.today.weather == "晴") {
+                                $api.attr($api.byId("portrait"), "src", "./images/sunny.png");
+                            } else if ((ret.result.today.weather == "多云") || (ret.result.today.weather == "少云")) {
+                                $api.attr($api.byId("portrait"), "src", "./images/cloudy.png");
+                            } else if (ret.result.today.weather.indexOf("雷阵雨") > 0) {
+                                $api.attr($api.byId("portrait"), "src", "./images/thunderstorm.png");
+                            } else if (ret.result.today.weather.indexOf("雪") > 0) {
+                                $api.attr($api.byId("portrait"), "src", "./images/snow.png");
+                            } else if (ret.result.today.weather.indexOf("雨") > 0) {
+                                $api.attr($api.byId("portrait"), "src", "./images/rain.png");
+                            } else {
+                                $api.attr($api.byId("portrait"), "src", "./images/cloudyday.png");
+                            }
+                            var o = option;
+                            var date1 = new Array();
+                            var maxtem = new Array();
+                            var mintem = new Array();
+                            var arr = new Array();
+                            for (var i = 0; i < ret.result.future.length; i++) {
+                                date1[i] = ret.result.future[i].date;
+                                arr = ret.result.future[i].temperature.split("~");
+
+                                maxtem[i] = arr[1].replace(/℃/, "");
+                                mintem[i] = arr[0].replace(/℃/, "");
+
+                            }
+                            option.xAxis[0].data = date1;
+                            option.series[0].data = maxtem;
+                            option.series[1].data = mintem;
+                            myChart.setOption(option);
+                        } else {
+                            api.toast({
+                                msg: ret.reason,
+                                duration: 3000,
+                                location: 'bottom'
+                            });
+                        }
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                    api.hideProgress();
+                    api.refreshHeaderLoadDone();
+                });
+            } else {
+                alert(err.code);
+            }
+        });
+    }
+</script>
+
+</html>

@@ -1,0 +1,1417 @@
+@charset "utf-8";
+* {
+    padding: 0;
+    margin: 0;
+    /*border: 0;*/
+    -webkit-tap-highlight-color: transparent;
+    -moz-tap-highlight-color: transparent;
+    -ms-tap-highlight-color: transparent;
+    -o-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+}
+
+*:not(input, textarea) {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+}
+
+
+/*移动端*/
+
+html {
+    font-size: 625%;
+    font-size: 100px;
+}
+
+body {
+    font-size: 0.16rem;
+}
+
+body {
+    font-family: Arial, "Microsoft Yahei", "微软雅黑";
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    height: 100%;
+}
+
+blockquote, body, dd, dir, dl, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, input[type=checkbox], input[type=radio], input[type=range], listing, menu, ol, p, plaintext, pre, ul, xmp {
+    margin: 0;
+}
+
+button, dir, fieldset, input, input[type=button], input[type=checkbox], input[type=file], input[type=hidden], input[type=image], input[type=password], input[type=radio], input[type=range], input[type=reset], input[type=search], input[type=submit], isindex, legend, menu, ol, textarea, ul {
+    padding: 0;
+}
+
+html * {
+    outline: 0;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    border: 0;
+    border-radius: 0
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+button, input, select {
+    color: inherit
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    margin: 0;
+}
+
+address, cite, dfn, em, i, var {
+    font-style: normal;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: normal;
+}
+
+fieldset, iframe {
+    border: 0;
+}
+
+ol, ul {
+    list-style: none
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+
+/*IE7不支持的清除浮动*/
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: ".";
+    clear: both;
+    height: 0;
+}
+
+* html .clearfix {
+    zoom: 1;
+}
+
+
+/*全版本兼容清楚浮动*/
+
+.clears {
+    clear: both;
+    line-height: 0px;
+    overflow: hidden;
+    font-size: 0px;
+    height: 0px;
+}
+
+input, textarea, select {
+    font-family: Verdana, Arial, "Microsoft Yahei", "微软雅黑";
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    color: inherit;
+}
+
+.mui-flex {
+    display: -webkit-box;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;
+    /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;
+    /* TWEENER - IE 10 */
+    display: -webkit-flex;
+    /* NEW - Chrome */
+    display: flex;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap
+}
+
+.mui-flex .mui-flex {
+    display: -webkit-box !important;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box !important;
+    /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox !important;
+    /* TWEENER - IE 10 */
+    display: -webkit-flex !important;
+    /* NEW - Chrome */
+    display: flex !important;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap
+}
+
+.mui-flex, .mui-flex *, .mui-flex:after, .mui-flex:before {
+    box-sizing: border-box
+}
+
+.mui-flex.vertical {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column
+}
+
+.mui-flex.vertical.reverse {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -webkit-flex-direction: column-reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse
+}
+
+.mui-flex.vertical>.cell {
+    width: auto
+}
+
+.mui-flex.vertical>.cell>.inner {
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+.mui-flex.horizental {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row
+}
+
+.mui-flex.reverse {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -webkit-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse
+}
+
+.mui-flex.justify-start {
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start
+}
+
+.mui-flex.justify-end {
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end
+}
+
+.mui-flex.justify-center {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.mui-flex.justify-between {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between
+}
+
+.mui-flex.justify-around {
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around
+}
+
+.mui-flex.align-start {
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start
+}
+
+.mui-flex.align-end {
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end
+}
+
+.mui-flex.align-center {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.mui-flex.align-stretch {
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch
+}
+
+.mui-flex.align-stretch .cell {
+    height: auto !important
+}
+
+.mui-flex.center {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.mui-flex>.cell {
+    -webkit-box-flex: 1;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1;
+    /* OLD - Firefox 19- */
+    /*width: 20%;               /!* For old syntax, otherwise collapses. *!/*/
+    -webkit-flex: 1;
+    /* Chrome */
+    -ms-flex: 1;
+    /* IE 10 */
+    flex: 1;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    width: 0;
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    max-width: 100%;
+    display: block;
+    padding: 0;
+    position: relative
+}
+
+.mui-flex.vertical>.cell {
+    width: auto;
+    height: 0;
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    /*max-height: 100%;*/
+    /*max-width: inherit;*/
+    display: block;
+    padding: 0;
+    position: relative
+}
+
+.mui-flex>.cell.fixed {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: none !important;
+    -ms-flex: none !important;
+    flex: none !important;
+    width: auto
+}
+
+.mui-flex>.cell.self-start {
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start
+}
+
+.mui-flex>.cell.self-end {
+    -webkit-align-self: flex-end;
+    -ms-flex-item-align: end;
+    align-self: flex-end
+}
+
+.mui-flex>.cell.self-center {
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center
+}
+
+.cat {
+    -webkit-box-flex: 3;
+    -moz-box-flex: 3;
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    flex: 3;
+}
+
+
+/*common font*/
+
+.f12 {
+    font-size: .06rem;
+}
+
+.f14 {
+    font-size: .07rem;
+}
+
+.f16 {
+    font-size: .08rem;
+}
+
+.f18 {
+    font-size: .09rem;
+}
+
+.f20 {
+    font-size: .1rem;
+}
+
+.f22 {
+    font-size: .11rem;
+}
+
+.f24 {
+    font-size: .12rem;
+}
+
+.f26 {
+    font-size: .13rem;
+}
+
+.f28 {
+    font-size: .14rem;
+}
+
+.f30 {
+    font-size: .15rem;
+}
+
+.f32 {
+    font-size: .16rem;
+}
+
+.f34 {
+    font-size: .17rem;
+}
+
+.f36 {
+    font-size: .18rem;
+}
+
+.f38 {
+    font-size: .19rem;
+}
+
+.f40 {
+    font-size: .2rem;
+}
+
+.f48 {
+    font-size: .24rem;
+}
+
+.f60 {
+    font-size: .3rem;
+}
+
+
+/*comment margin-top*/
+
+.m12 {
+    margin-top: .06rem;
+}
+
+.m20 {
+    margin-top: .1rem;
+}
+
+.m22 {
+    margin-top: .11rem;
+}
+
+
+/*comment height*/
+
+.h66 {
+    height: .33rem;
+}
+
+.h90 {
+    height: .45rem;
+}
+
+.covers {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, .8);
+    text-align: center;
+    z-index: 99999999;
+    display: none;
+}
+
+.covers img {
+    width: 450px;
+    height: 340px;
+    margin-top: 100px;
+}
+
+.grid {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header-main {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.headdetail {
+    background: #38373D;
+    /*头部*/
+    color: #fff;
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+.yeardetail {
+    height: 0.3rem;
+    background: #38373D;
+    /*头部*/
+    color: #fff;
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+.head-left {
+    padding: 0 10px;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 50%;
+    -webkit-flex: 0;
+    -webkit-flex-grow: 0;
+    -webkit-flex-shrink: 0;
+    -webkit-flex-basis: 50%;
+}
+
+.head-right {
+    padding: 0 10px;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 50%;
+    -webkit-flex: 0;
+    -webkit-flex-grow: 0;
+    -webkit-flex-shrink: 0;
+    -webkit-flex-basis: 50%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+}
+
+.yearwidth {
+    width: 33.333333333333%
+}
+
+.display {
+    display: none;
+}
+
+.header .child.listdetail {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: flex-start;
+    flex: 0;
+    -ms-flex: 0;
+    -webkit-flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 80%;
+}
+
+.header .child.listdetail i {
+    display: inline-block;
+    width: .09rem;
+    height: .05rem;
+    background: url(../images/calendar_bottom.png) no-repeat;
+    background-size: cover;
+    margin-top: .1rem;
+    margin-left: .1rem;
+}
+
+.header .child.date {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    align-items: center;
+    flex: 0;
+    -ms-flex: 0;
+    -webkit-flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 80%;
+}
+
+.header .child.date i {
+    display: inline-block;
+    width: .09rem;
+    height: .05rem;
+    background: url(../images/calendar_bottom.png) no-repeat;
+    background-size: cover;
+    margin-left: .1rem;
+}
+
+.header .child.almanac {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: flex-end;
+    flex: 0;
+    -ms-flex: 0;
+    -webkit-flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 15%;
+}
+
+.share img {
+    width: .3rem;
+    height: .3rem;
+    vertical-align: middle;
+}
+
+
+/*start day*/
+
+.content {
+    padding-top: 0.8rem;
+}
+
+.day {
+    height: .77rem;
+    background: #38373D;
+    /*头部*/
+    color: #fff;
+}
+
+.day .grid {
+    width: 100%;
+    height: 100%;
+    padding: 0 3%;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    align-items: center;
+}
+
+.day-left {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 50%;
+    -webkit-flex: 0;
+    -webkit-flex-grow: 0;
+    -webkit-flex-shrink: 0;
+    -webkit-flex-basis: 50%;
+}
+
+.day-right {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 50%;
+    -webkit-flex: 0;
+    -webkit-flex-grow: 0;
+    -webkit-flex-shrink: 0;
+    -webkit-flex-basis: 50%;
+    align-items: center;
+    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+    -ms-justify-content: flex-end;
+}
+
+.day-left h1 {
+    font-size: .6rem;
+    padding-right: .08rem;
+}
+
+.day-left .top-contrl p {
+    display: flex;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    -webkit-align-items: center;
+    -webkit-flex-wrap: wrap;
+    margin-top: .1rem;
+}
+
+.top-contrl p span {
+    width: .1rem;
+    height: .06rem;
+    background: url(../images/cotrl-bottom.png) no-repeat;
+    background-size: cover;
+    /* margin-left: .1rem;*/
+}
+
+.top-contrl p em {
+    color: #FFFFFF;
+}
+
+.top-contrl i {
+    font-size: .2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.day-left p em {
+    font-size: .15rem;
+}
+
+.day-left p i {
+    margin-top: .01rem;
+    display: block;
+    font-size: .2rem;
+}
+
+
+/*.day-right{
+	float: right;
+	height: 100%;
+}*/
+
+.day-right .yun {
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+.day-right .yun span {
+    display: inline-block;
+    width: .3rem;
+    height: .3rem;
+    line-height: .3rem;
+    text-align: center;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    margin-left: .15rem;
+    /*align-self:center;*/
+}
+
+.note {
+    width: 100%;
+    height: .68rem;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+.note .grid {
+    padding: .12rem 0;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.note .grid .note-left {
+    flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.note .grid .note-right {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    align-items: center;
+    flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 25%;
+    justify-content: flex-end;
+    color: #333;
+}
+
+.note .grid .note-right i {
+    width: .07rem;
+    height: .13rem;
+    background: url(../images/calendar_arrow_right.png) no-repeat;
+    background-size: cover;
+    margin-left: .11rem;
+}
+
+.note .grid .note-left p {
+    width: 100%;
+    font-size: .14rem;
+    line-height: 1.6;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.note .grid .note-left p.yi i {
+    color: #38373D;
+}
+
+.note .grid .note-left p.ji i {
+    color: #38373D;
+}
+
+.week ul {
+    width: 98%;
+    padding: 0 1%;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    height: .48rem;
+}
+
+.week ul li {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex: auto;
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    justify-content: center;
+    align-items: center;
+    font-size: .13rem;
+}
+
+.tables {
+    font-size: .14rem;
+    color: #666;
+    /*  周1到5 数字颜色 */
+    font-family: "微软雅黑";
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+.tables tbody {
+    width: 100%;
+}
+
+.tables tbody tr {
+    width: 100%;
+    padding: 0 1%;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+}
+
+.tables tbody tr td {
+    border: 0px solid #fff;
+    flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 14%;
+    justify-content: center;
+    padding: .04rem 0;
+    position: relative;
+}
+
+.tables .list i {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    font-size: .24rem;
+    justify-content: center;
+}
+
+.tables .list em {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    font-size: .12rem;
+    justify-content: center;
+}
+
+.swiper-slide table tr {
+    text-align: center;
+    height: .58rem;
+    margin-bottom: .08rem;
+}
+
+tr .not_this {
+    color: #ccc !important;
+    /* 最后 几天的颜色  */
+}
+
+.today {
+    background: #38373D;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.xuanzhong {
+    border: 2px solid #38373D !important;
+    /* 选中边框  */
+    border-radius: 8px;
+}
+
+tr td:first-child {
+    color: #f00;
+}
+
+tr td:last-child {
+    color: #f00;
+}
+
+td {
+    position: relative;
+}
+
+td .fangjia {
+    display: block;
+    width: .14rem;
+    height: .14rem;
+    background: url(../images/calendar_img_relax.png) no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+td .shangban {
+    display: block;
+    width: .14rem;
+    height: .14rem;
+    background: url(../images/calendar_img_work.png) no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+/*******弹窗******/
+
+.prorup {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    opacity: 0.4;
+    display: none;
+}
+
+.layer {
+    position: fixed;
+    width: 94%;
+    top: 1.26rem;
+    left: 50%;
+    margin-left: -47%;
+    z-index: 14;
+    display: none;
+}
+
+.layer .san {
+    width: 100%;
+    display: block;
+    height: .07rem;
+}
+
+.layer .san i {
+    display: inherit;
+    width: 0;
+    height: 0;
+    border-left: .06rem solid transparent;
+    border-right: .06rem solid transparent;
+    border-bottom: .08rem solid #fff;
+    float: right;
+    margin-right: .6rem;
+}
+
+.layer .jia {
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.jia ul {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+}
+
+.jia ul li {
+    height: .54rem;
+    float: left;
+    text-align: center;
+    color: #333;
+    flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 49.8%;
+}
+
+.jia ul li:first-of-type {
+    border: 0;
+}
+
+.jia ul li:nth-child(2n) {
+    border-bottom: 1px solid #eee;
+}
+
+.jia ul li:nth-child(2n+1) {
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.jia ul li span {
+    display: block;
+    font-size: .14rem;
+    margin-top: .08rem;
+}
+
+.jia ul li em {
+    font-size: .12rem;
+}
+
+.jie {
+    position: fixed;
+    width: 94%;
+    top: 1.26rem;
+    left: 50%;
+    margin-left: -47%;
+    z-index: 14;
+    display: none;
+}
+
+.jie .san {
+    width: 100%;
+    display: block;
+    height: .07rem;
+    position: relative;
+}
+
+.jie .san i {
+    display: inherit;
+    width: 0;
+    height: 0;
+    border-left: .06rem solid transparent;
+    border-right: .06rem solid transparent;
+    border-bottom: .08rem solid #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: .1rem;
+}
+
+.jie .solar {
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.jie .solar .solar-title {
+    height: .5rem;
+    text-align: center;
+    color: #38373D;
+    line-height: .5rem;
+}
+
+.solar ul {
+    width: 100%;
+}
+
+.solar ul li {
+    float: left;
+    width: 24.7%;
+    text-align: center;
+    line-height: .4rem;
+    font-size: .14rem;
+    color: #333;
+    border-top: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+
+.solar ul li:nth-child(4) {
+    border-right: 0;
+}
+
+.solar ul li:nth-child(8) {
+    border-right: 0;
+}
+
+.solar ul li:nth-child(12) {
+    border-right: 0;
+}
+
+.solar ul li:nth-child(16) {
+    border-right: 0;
+}
+
+.solar ul li:nth-child(20) {
+    border-right: 0;
+}
+
+.solar ul li:nth-child(24) {
+    border-right: 0;
+}
+
+.dibu {
+    height: .5rem;
+    width: 100%;
+}
+
+.footer ul {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    height: .49rem;
+    border-top: 1px solid #e3e3e3;
+    background: #fff;
+}
+
+.footer ul li {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex: auto;
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    align-items: center;
+    position: relative;
+}
+
+.footer ul li a {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer ul li:nth-child(1) a i {
+    display: inline-block;
+    width: .21rem;
+    height: .21rem;
+    background: url(../images/btn_calendar_selected.png) no-repeat;
+    background-size: cover;
+}
+
+.footer ul li:nth-child(2) a i {
+    display: inline-block;
+    width: .21rem;
+    height: .21rem;
+    background: url(../images/btn_huangli.png) no-repeat;
+    background-size: cover;
+}
+
+.footer ul li a em {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    width: 100%;
+    justify-content: center;
+    margin-top: .04rem;
+}
+
+.footer ul li:nth-child(1) a {
+    color: #38373D;
+}
+
+.footer ul li:nth-child(1):before {
+    content: " ";
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    background: #e3e3e3;
+    width: 1px;
+}
+
+
+/*弹窗*/
+
+.tc {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 12;
+    display: none;
+}
+
+.tc-innner {
+    background: #fff;
+    width: 3.05rem;
+    height: 2.95rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -1.475rem 0 0 -1.525rem;
+    z-index: 14;
+    border-radius: 4px;
+    overflow: hidden;
+    display: none;
+}
+
+.tc-innner h2 {
+    height: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 0.15rem;
+    font-size: 0.19rem;
+    color: #38373D;
+    line-height: 0.5rem;
+    font-weight: normal;
+}
+
+.title-right {
+    float: right;
+    width: 1.1rem;
+    height: 0.24rem;
+    border: 1px #38373D solid;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 0.125rem;
+    overflow: hidden;
+}
+
+.title-right .zblck {
+    width: 50%;
+    height: 100%;
+    color: #38373D;
+    font-size: 0.14rem;
+    line-height: 0.22rem;
+    text-align: center;
+    float: left;
+}
+
+.title-right .active {
+    background: #38373D;
+    color: #fff;
+}
+
+.current-time {
+    text-align: center;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    font-size: 0.15rem;
+    color: #666;
+}
+
+.swiper-box {
+    height: 1.6rem;
+    margin: 0 0.15rem;
+    box-sizing: border-box;
+    margin-top: 0.05rem;
+    position: relative;
+}
+
+.swiper-box i {
+    width: 100%;
+    height: 1px;
+    background: #e3e3e3;
+    display: block;
+    position: absolute;
+    left: 0;
+}
+
+.swiper-box .i1 {
+    top: 0;
+}
+
+.swiper-box .i2 {
+    top: 0.53rem;
+}
+
+.swiper-box .i3 {
+    top: 1.06rem;
+}
+
+.swiper-box-li {
+    width: 50%;
+    float: left;
+    text-align: center;
+    overflow: hidden;
+}
+
+.nbxs {
+    height: 1.6rem;
+}
+
+.nbxs .swiper-slide {
+    height: 0.53rem;
+    line-height: 0.53rem;
+}
+
+.nbxs .swiper-slide-active {
+    color: #38373D;
+}
+
+.tc-bot {
+    height: 0.5rem;
+    border-top: 1px #e3e3e3 solid;
+    position: relative;
+}
+
+.tc-bot>div {
+    float: left;
+    width: 50%;
+    line-height: 0.5rem;
+    font-size: 0.19rem;
+    text-align: center;
+}
+
+.tc-bot-left {
+    color: #999;
+}
+
+.tc-bot-right {
+    color: #38373D;
+}
+
+.tc-bot i {
+    display: block;
+    width: 1px;
+    height: 0.2rem;
+    background: #e3e3e3;
+    position: absolute;
+    top: 0.14rem;
+    left: 50%;
+    margin-left: 1px;
+}
+
+
+/*loading*/
+
+.loading {
+    width: 1.53rem;
+    height: 1.15rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    margin-left: -0.765rem;
+    margin-top: -0.575rem;
+    z-index: 9999999999999999999999999999;
+}
+
+.loading-bj {
+    background: url(../images/loading.png);
+    width: 0.35rem;
+    height: 0.35rem;
+    background-size: 0.35rem;
+    margin: 0.3rem auto 0;
+    animation: rotateIn 1s .2s linear infinite;
+    -moz-animation: rotateIn 1s .2s linear infinite;
+    -webkit-animation: rotateIn 1s .2s linear infinite;
+}
+
+.loading p {
+    color: #fff;
+    font-size: 0.14rem;
+    text-align: center;
+    margin-top: 0.1rem;
+}
+
+@-webkit-keyframes rotateIn {
+    0% {
+        transform: rotate(0)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@-moz-keyframes rotateIn {
+    0% {
+        transform: rotate(0)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.reduction-bj {
+    background: url(../images/reduction.png);
+    width: 0.36rem;
+    height: 0.36rem;
+    background-size: 0.36rem;
+    margin: 0.3rem auto 0;
+}
+
+.jg {
+    background: url(../images/jg.png);
+    background-size: 0.36rem;
+}
+
+.back2 {
+    background: url(../images/back.png) center no-repeat;
+    background-size: 0.12rem 0.2rem;
+}
