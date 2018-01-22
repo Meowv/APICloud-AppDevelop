@@ -108,6 +108,13 @@
                 api.toLauncher();
             }
         });
+
+        var jpush = api.require('ajpush');
+        jpush.init(function(ret, err) {
+            if (ret && ret.status) {
+                // success
+            }
+        });
     }
 
     // 打开向导页面和 frame 组
